@@ -8,8 +8,8 @@
   <title>test </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <link href="assets/img/logoKominfo.png" rel="icon">
-  <link href="assets/img/logoKominfo.png" rel="apple-touch-icon">
+  <link href="assets/img/logo.png" rel="icon">
+  <link href="assets/img/logo.png" rel="apple-touch-icon">
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -18,8 +18,8 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link href="assets/css/style2.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <link href="style2.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -78,8 +78,331 @@
       </div>
     </div>
   </section><!-- End Hero -->
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/main2.js"></script>
+  <script>
+    /**
+* Template Name: Groovin - v4.7.0
+* Template URL: https://bootstrapmade.com/groovin-free-bootstrap-theme/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+(function() {
+  "use strict";
+
+  /**
+   * Easy selector helper function
+   */
+  const select = (el, all = false) => {
+    el = el.trim()
+    if (all) {
+      return [...document.querySelectorAll(el)]
+    } else {
+      return document.querySelector(el)
+    }
+  }
+
+  /**
+   * Easy event listener function
+   */
+  const on = (type, el, listener, all = false) => {
+    let selectEl = select(el, all)
+    if (selectEl) {
+      if (all) {
+        selectEl.forEach(e => e.addEventListener(type, listener))
+      } else {
+        selectEl.addEventListener(type, listener)
+      }
+    }
+  }
+
+  /**
+   * Easy on scroll event listener 
+   */
+  const onscroll = (el, listener) => {
+    el.addEventListener('scroll', listener)
+  }
+
+  /**
+   * Navbar links active state on scroll
+   */
+  let navbarlinks = select('#navbar .scrollto', true)
+  const navbarlinksActive = () => {
+    let position = window.scrollY + 200
+    navbarlinks.forEach(navbarlink => {
+      if (!navbarlink.hash) return
+      let section = select(navbarlink.hash)
+      if (!section) return
+      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+        navbarlink.classList.add('active')
+      } else {
+        navbarlink.classList.remove('active')
+      }
+    })
+  }
+  window.addEventListener('load', navbarlinksActive)
+  onscroll(document, navbarlinksActive)
+
+  /**
+   * Scrolls to an element with header offset
+   */
+  const scrollto = (el) => {
+    let header = select('#header')
+    let offset = header.offsetHeight
+
+    let elementPos = select(el).offsetTop
+    window.scrollTo({
+      top: elementPos - offset,
+      behavior: 'smooth'
+    })
+  }
+
+  /**
+   * Back to top button
+   */
+  let backtotop = select('.back-to-top')
+  if (backtotop) {
+    const toggleBacktotop = () => {
+      if (window.scrollY > 100) {
+        backtotop.classList.add('active')
+      } else {
+        backtotop.classList.remove('active')
+      }
+    }
+    window.addEventListener('load', toggleBacktotop)
+    onscroll(document, toggleBacktotop)
+  }
+
+  /**
+   * Mobile nav toggle
+   */
+  on('click', '.mobile-nav-toggle', function(e) {
+    select('#navbar').classList.toggle('navbar-mobile')
+    this.classList.toggle('bi-list')
+    this.classList.toggle('bi-x')
+  })
+
+  /**
+   * Mobile nav dropdowns activate
+   */
+  on('click', '.navbar .dropdown > a', function(e) {
+    if (select('#navbar').classList.contains('navbar-mobile')) {
+      e.preventDefault()
+      this.nextElementSibling.classList.toggle('dropdown-active')
+    }
+  }, true)
+
+  /**
+   * Scrool with ofset on links with a class name .scrollto
+   */
+  on('click', '.scrollto', function(e) {
+    if (select(this.hash)) {
+      e.preventDefault()
+
+      let navbar = select('#navbar')
+      if (navbar.classList.contains('navbar-mobile')) {
+        navbar.classList.remove('navbar-mobile')
+        let navbarToggle = select('.mobile-nav-toggle')
+        navbarToggle.classList.toggle('bi-list')
+        navbarToggle.classList.toggle('bi-x')
+      }
+      scrollto(this.hash)
+    }
+  }, true)
+
+  /**
+   * Scroll with ofset on page load with hash links in the url
+   */
+  window.addEventListener('load', () => {
+    if (window.location.hash) {
+      if (select(window.location.hash)) {
+        scrollto(window.location.hash)
+      }
+    }
+  });
+
+  /**
+   * Hero carousel indicators
+   */
+  let heroCarouselIndicators = select("#hero-carousel-indicators")
+  let heroCarouselItems = select('#heroCarousel .carousel-item', true)
+
+  heroCarouselItems.forEach((item, index) => {
+    (index === 0) ?
+    heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "' class='active'></li>":
+      heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "'></li>"
+  });
+
+  /**
+   * Porfolio isotope and filter
+   */
+  window.addEventListener('load', () => {
+    let portfolioContainer = select('.portfolio-container');
+    if (portfolioContainer) {
+      let portfolioIsotope = new Isotope(portfolioContainer, {
+        itemSelector: '.portfolio-item',
+        layoutMode: 'fitRows'
+      });
+
+      let portfolioFilters = select('#portfolio-flters li', true);
+
+      on('click', '#portfolio-flters li', function(e) {
+        e.preventDefault();
+        portfolioFilters.forEach(function(el) {
+          el.classList.remove('filter-active');
+        });
+        this.classList.add('filter-active');
+
+        portfolioIsotope.arrange({
+          filter: this.getAttribute('data-filter')
+        });
+
+      }, true);
+    }
+
+  });
+
+  /**
+   * Initiate portfolio lightbox 
+   */
+  const portfolioLightbox = GLightbox({
+    selector: '.portfolio-lightbox'
+  });
+
+  /**
+   * Portfolio details slider
+   */
+  new Swiper('.portfolio-details-slider', {
+    speed: 400,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true
+    }
+  });
+
+})()
+
+function I(id){return document.getElementById(id);}
+    var meterBk="#E0E0E0";
+    var dlColor="#40fd14",
+      ulColor="#40fd14",
+      pingColor="#AA6060",
+      jitColor="#AA6060";
+    var progColor="#40fd14";
+    var parameters={ //custom test parameters. See doc.md for a complete list
+      time_dl: 5, //download test lasts 10 seconds
+      time_ul: 5, //upload test lasts 10 seconds
+      count_ping: 50, //ping+jitter test does 20 pings
+      getIp_ispInfo: false //will only get IP address without ISP info
+    };
+    
+    //CODE FOR GAUGES
+    function drawMeter(c,amount,bk,fg,progress,prog){
+      var ctx=c.getContext("2d");
+      var dp=window.devicePixelRatio||1;
+      var cw=c.clientWidth*dp, ch=c.clientHeight*dp;
+      var sizScale=ch*0.0055;
+      if(c.width==cw&&c.height==ch){
+        ctx.clearRect(0,0,cw,ch);
+      }else{
+        c.width=cw;
+        c.height=ch;
+      }
+      ctx.beginPath();
+      ctx.strokeStyle=bk;
+      ctx.lineWidth=16*sizScale;
+      ctx.arc(c.width/2,c.height-58*sizScale,c.height/1.8-ctx.lineWidth,-Math.PI*1.1,Math.PI*0.1);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.strokeStyle=fg;
+      ctx.lineWidth=16*sizScale;
+      ctx.arc(c.width/2,c.height-58*sizScale,c.height/1.8-ctx.lineWidth,-Math.PI*1.1,amount*Math.PI*1.2-Math.PI*1.1);
+      ctx.stroke();
+      if(typeof progress !== "undefined"){
+        ctx.fillStyle=prog;
+        ctx.fillRect(c.width*0.3,c.height-16*sizScale,c.width*0.4*progress,4*sizScale);
+      }
+    }
+    function mbpsToAmount(s){
+      return 1-(1/(Math.pow(1.3,Math.sqrt(s))));
+    }
+    function msToAmount(s){
+      return 1-(1/(Math.pow(1.08,Math.sqrt(s))));
+    }
+    
+    //SPEEDTEST AND UI CODE
+    var w=null; //speedtest worker
+    var data=null; //data from worker
+    function startStop(){
+      if(w!=null){
+        //speedtest is running, abort
+        w.postMessage('abort');
+        w=null;
+        data=null;
+        I("startStopBtn").className="";
+        initUI();
+      }else{
+        //test is not running, begin
+        w=new Worker('speedtest_worker.min.js');
+        w.postMessage('start'); //Add optional parameters as a JSON object to this command
+        I("startStopBtn").className="running";
+        w.onmessage=function(e){
+          data=e.data.split(';');
+          var status=Number(data[0]);
+          if(status>=4){
+            //test completed
+            I("startStopBtn").className="";
+            w=null;
+            updateUI(true);
+          }
+        };
+      }
+    }
+    //this function reads the data sent back by the worker and updates the UI
+    function updateUI(forced){
+      if(!forced&&(!data||!w)) return;
+      var status=Number(data[0]);
+      I("dlText").textContent=(status==1&&data[1]==0)?"...":data[1];
+      drawMeter(I("dlMeter"),mbpsToAmount(Number(data[1]*(status==1?oscillate():1))),meterBk,dlColor,Number(data[6]),progColor);
+      I("ulText").textContent=(status==3&&data[2]==0)?"...":data[2];
+      drawMeter(I("ulMeter"),mbpsToAmount(Number(data[2]*(status==3?oscillate():1))),meterBk,ulColor,Number(data[7]),progColor);
+      I("pingText").textContent=data[3];
+      drawMeter(I("pingMeter"),msToAmount(Number(data[3]*(status==2?oscillate():1))),meterBk,pingColor,Number(data[8]),progColor);
+      I("jitText").textContent=data[5];
+      drawMeter(I("jitMeter"),msToAmount(Number(data[5]*(status==2?oscillate():1))),meterBk,jitColor,Number(data[8]),progColor);
+
+    }
+    function oscillate(){
+      return 1+0.02*Math.sin(Date.now()/100);
+    }
+    //poll the status from the worker (this will call updateUI)
+    setInterval(function(){
+      if(w) w.postMessage('status');
+    },200);
+    //update the UI every frame
+    window.requestAnimationFrame=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.msRequestAnimationFrame||(function(callback,element){setTimeout(callback,1000/60);});
+    function frame(){
+      requestAnimationFrame(frame);
+      updateUI();
+    }
+    frame(); //start frame loop
+    //function to (re)initialize UI
+    function initUI(){
+      drawMeter(I("dlMeter"),0,meterBk,dlColor,0);
+      drawMeter(I("ulMeter"),0,meterBk,ulColor,0);
+      drawMeter(I("pingMeter"),0,meterBk,pingColor,0);
+      drawMeter(I("jitMeter"),0,meterBk,jitColor,0);
+      I("dlText").textContent="";
+      I("ulText").textContent="";
+      I("pingText").textContent="";
+      I("jitText").textContent="";
+    
+    }
+  </script>
 </body>
 
 </html>
