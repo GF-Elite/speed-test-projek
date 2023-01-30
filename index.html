@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Speed Test Diskominfostan Kab. Deli Serdang</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <link href="assets/img/logoKominfo.png" rel="icon">
+  <link href="assets/img/logoKominfo.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style2.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+      <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide 1 -->
+          <div class="carousel-item active" style="background: url(assets/img/bgHero.jpg); background-size: cover;">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 style="font-size:30px;">Speed Test<br> Diskominfostan Kabupaten Deli Serdang</h2>
+                <div class="testGroup">
+                  <div class="testArea">
+                    <div class="testName">Download</div>
+                    <canvas id="dlMeter" class="meter"></canvas>
+                    <div id="dlText" class="meterText"></div>
+                    <div class="unit">Mbps</div>
+                  </div>
+                  <div class="testArea">
+                    <div class="testName">Upload</div>
+                    <canvas id="ulMeter" class="meter"></canvas>
+                    <div id="ulText" class="meterText"></div>
+                    <div class="unit">Mbps</div>
+                  </div>
+                </div>
+                <br>
+                <div class="testGroup">
+                  <div class="testArea">
+                    <div class="testName">Ping</div>
+                    <canvas id="pingMeter" class="meter"></canvas>
+                    <div id="pingText" class="meterText"></div>
+                    <div class="unit">ms</div>
+                  </div>
+                  <div class="testArea">
+                    <div class="testName">Jitter</div>
+                    <canvas id="jitMeter" class="meter"></canvas>
+                    <div id="jitText" class="meterText"></div>
+                    <div class="unit">ms</div>
+                  </div>
+                </div>
+                <br>
+                <div id="startStopBtn" onclick="startStop()">
+                </div>
+                <br>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section><!-- End Hero -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main2.js"></script>
+</body>
+
+</html>
